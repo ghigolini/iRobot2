@@ -45,7 +45,7 @@ def generate_launch_description():
     voice_node = Node(
         package='voice_node',
         executable='voice_node',
-        name='maze_svoice_nodeolver',
+        name='voice_node',
         output='screen',
         emulate_tty=True,
         parameters=[common_params],
