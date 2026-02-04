@@ -14,7 +14,7 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='lorenzo',
-    maintainer_email='lorenzo.dangelo.mail@gmail.com',
+    maintainer_email='puzza@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'voice_node = voice_node.voice_node:main'
         ],
     },
 )
