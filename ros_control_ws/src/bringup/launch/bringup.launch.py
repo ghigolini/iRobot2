@@ -52,4 +52,4 @@ def generate_launch_description():
         arguments=['--ros-args', '--log-level', 'INFO']
     )
 
-    return LaunchDescription([planner, actuator, maze_solver])
+    return LaunchDescription([planner, actuator, maze_solver, voice_node])
