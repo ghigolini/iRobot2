@@ -1,0 +1,70 @@
+import threading
+
+import rclpy
+from rclpy.node import Node
+
+from fastapi import FastAPI
+import uvicorn
+from pydantic import BaseModel
+
+from custom_msg import Command
+
+
+class CommandRequest(BaseModel):
+    name: str
+    value: int
+
+
+class VoiceNode(Node):
+
+    def __init__(self):
+        super().__init__('voice_node')
+
+        self.publisher_ = self.create_publisher(Command, 'command', 10)
+        self.get_logger().info('VoiceNode avviato')
+
+        self.app = FastAPI()
+        self._setup_routes()
+
+        self.server_thread = threading.Thread(
+            target=self._run_server,
+            daemon=True
+        )
+        self.server_thread.start()
+
+        self.get_logger().info('Server FastAPI avviato su porta 8000')
+
+    def _setup_routes(self):
+
+        @self.app.post("/command")
+        def send_command(req: CommandRequest):
+            command = Command()
+            msg.command = req.id
+            
+            self.publisher_.publish(msg)
+
+            self.get_logger().info(
+                f'Pubblicato Command: id={req.id}'
+            )
+
+            return {"status": "ok"}
+
+    def _run_server(self):
+        uvicorn.run(
+            self.app,
+            host="0.0.0.0",
+            port=1234,
+            log_level="info"
+        )
+
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = VoiceNode()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

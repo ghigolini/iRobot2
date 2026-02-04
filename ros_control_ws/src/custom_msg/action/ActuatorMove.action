@@ -1,0 +1,7 @@
+string type
+float32 distance
+float32 max_speed
+---
+bool status
+---
+float32 percentage

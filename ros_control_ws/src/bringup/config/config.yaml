@@ -1,0 +1,24 @@
+# ----------------------------
+# Configurazioni
+# ----------------------------
+
+# ====================
+#    Setting Data
+# ====================
+global_heading: 0
+goal: [20, 20]
+cell_length: 1
+
+# Movement data
+rotation_speed: 0.5
+
+movement_distance: 1.0
+movement_speed: 1.0
+
+# LIDAR DATA
+angle: 0.5760
+
+# IR costant
+k: 1
+
+use_sim_time: true
