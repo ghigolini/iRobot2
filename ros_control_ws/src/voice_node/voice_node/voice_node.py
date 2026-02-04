@@ -11,7 +11,7 @@ from custom_msg.msg import Command
 
 
 class CommandRequest(BaseModel):
-    id: int
+    id: str
 
 
 class VoiceNode(Node):
@@ -35,18 +35,14 @@ class VoiceNode(Node):
 
     def _setup_routes(self):
 
-        @self.app.post("/command")
-        def send_command(req: CommandRequest):
+        @self.app.get("/command")
+        def send_command(id: str):
             command = Command()
-            command.command = req.id
-            
+            command.command = id
             self.publisher_.publish(command)
 
-            self.get_logger().info(
-                f'Pubblicato Command: id={req.id}'
-            )
-
-            return {"status": "ok"}
+            self.get_logger().info(f'Pubblicato Command: id={id}')
+            return {"status": "ok", "id": id}
 
     def _run_server(self):
         uvicorn.run(
