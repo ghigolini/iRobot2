@@ -7,12 +7,11 @@ from fastapi import FastAPI
 import uvicorn
 from pydantic import BaseModel
 
-from custom_msg import Command
+from custom_msg.msg import Command
 
 
 class CommandRequest(BaseModel):
-    name: str
-    value: int
+    id: int
 
 
 class VoiceNode(Node):
@@ -39,9 +38,9 @@ class VoiceNode(Node):
         @self.app.post("/command")
         def send_command(req: CommandRequest):
             command = Command()
-            msg.command = req.id
+            command.command = req.id
             
-            self.publisher_.publish(msg)
+            self.publisher_.publish(command)
 
             self.get_logger().info(
                 f'Pubblicato Command: id={req.id}'
