@@ -4,6 +4,7 @@ import rclpy
 from rclpy.node import Node
 
 from fastapi import FastAPI
+from fastapi import BackgroundTasks
 import uvicorn
 from pydantic import BaseModel
 
@@ -36,13 +37,15 @@ class VoiceNode(Node):
     def _setup_routes(self):
 
         @self.app.get("/command")
-        def send_command(id: str):
-            command = Command()
-            command.command = id
-            self.publisher_.publish(command)
-
-            self.get_logger().info(f'Pubblicato Command: id={id}')
+        def send_command(id: str, background_tasks: BackgroundTasks):
+            background_tasks.add_task(self._publish_command, id)
             return {"status": "ok", "id": id}
+
+    def _publish_command(self, id: str):
+        command = Command()
+        command.command = id
+        self.publisher_.publish(command)
+        self.get_logger().info(f'Pubblicato Command: id={id}')
 
     def _run_server(self):
         uvicorn.run(

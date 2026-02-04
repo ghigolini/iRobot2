@@ -8,11 +8,11 @@
   <license>TODO: License declaration</license>
 
   <exec_depend>rclpy</exec_depend>
-  <exec_depend>irobot_create_msgs</exec_depend>
   <exec_depend>custom_msg</exec_depend>
   <exec_depend>fastapi</exec_depend>
   <exec_depend>uvicorn</exec_depend>
-  <exec_depend>pydantic</exec_depend>
+  <exec_depend>threading</exec_depend>
+  <exec_depend>queue</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
