@@ -148,9 +148,10 @@ class BehaviouralTree:
 
         root.add_children([availability_selector])
 
-        lidar_node = LidarMap()
+        #lidar_node = LidarMap()
+        ir_node = IRMap()
         feedback = Feedback()
-        exec_sequence.add_children([lidar_node, choose_algorithm, feedback])
+        exec_sequence.add_children([ir_node, choose_algorithm, feedback])
 
         self.tree = py_trees.trees.BehaviourTree(root)
         

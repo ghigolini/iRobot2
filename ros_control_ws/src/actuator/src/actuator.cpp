@@ -474,8 +474,8 @@ private:
         }
 
         irobot_create_msgs::action::RotateAngle::Goal goal_msg;
-        float increment = 0.10347f * static_cast<int>(angle / 1.5);
-        goal_msg.angle = angle + increment;
+        //float increment = 0.10347f * static_cast<int>(angle / 1.5);
+        goal_msg.angle = angle;
         goal_msg.max_rotation_speed = speed;
 
         auto options = rclcpp_action::Client<irobot_create_msgs::action::RotateAngle>::SendGoalOptions();
