@@ -40,7 +40,10 @@ class IRMap(py_trees.behaviour.Behaviour):
 
             for r in ir_sensors:
                 if r.header.frame_id == "ir_intensity_front_right":
-                    right_ray_distance = math.sqrt(k / r.value);
+                    if(r.value == 0) :
+                        right_ray_distance = 2.0
+                    else :
+                        right_ray_distance = math.sqrt(k / r.value);
                     break
 
             right_ray_distance_min = ((5 * self.BB.get("cell_length")) / 8) / math.cos(math.radians(34))
@@ -67,7 +70,10 @@ class IRMap(py_trees.behaviour.Behaviour):
 
             for r in ir_sensors:
                 if r.header.frame_id == "ir_intensity_front_center_left":
-                    central_ray_distance = math.sqrt(k / r.value);
+                    if(r.value == 0) :
+                        central_ray_distance = 2.0
+                    else :
+                        central_ray_distance = math.sqrt(k / r.value);
                     break
 
             central_ray_distance_min = ((5 * self.BB.get("cell_length")) / 8) / math.cos(math.radians(3))
@@ -94,7 +100,10 @@ class IRMap(py_trees.behaviour.Behaviour):
 
             for r in ir_sensors:
                 if r.header.frame_id == "ir_intensity_left":
-                    left_ray_distance = math.sqrt(k / r.value);
+                    if(r.value == 0) :
+                        left_ray_distance = 2.0
+                    else :
+                        left_ray_distance = math.sqrt(k / r.value);
                     break
 
             left_ray_distance_min = ((5 * self.BB.get("cell_length")) / 8) / math.cos(math.radians(38))

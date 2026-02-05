@@ -28,17 +28,17 @@ class MazeSolver(Node):
         # Dichiarazione opzionale (serve per avere default se manca nel YAML)
         self.declare_parameter('global_heading', 0)
         self.declare_parameter('goal', [1, 1])
-        self.declare_parameter('cell_lencth', 1)
+        self.declare_parameter('cell_length', 1.0)
         self.declare_parameter('rotation_speed', 0.5)
         self.declare_parameter('movement_distance', 1.0)
         self.declare_parameter('movement_speed', 1.0)
         self.declare_parameter('angle', 0.5760)
-        self.declare_parameter('k', 1)
+        self.declare_parameter('k', 1.0)
 
         # Lettura effettiva (se nel YAML c’è un valore, sovrascrive il default)
         self.global_heading = self.get_parameter('global_heading').value
         self.goal = self.get_parameter('goal').value
-        self.cell_length = self.get_parameter('cell_lencth').value
+        self.cell_length = self.get_parameter('cell_length').value
         self.rotation_speed = self.get_parameter('rotation_speed').value
         self.movement_distance = self.get_parameter('movement_distance').value
         self.movement_speed = self.get_parameter('movement_speed').value
@@ -212,7 +212,7 @@ class MazeSolver(Node):
     def execute_ir_intensity_callback(self, msg):
         self._ir_sensors.clear()
         for ir in msg.readings:
-            if(ir.heading.frame_id == "ir_intensity_front_center_left") :
+            if(ir.header.frame_id == "ir_intensity_front_center_left") :
                 self.get_logger().info("IR DISTANCE:")
                 self.get_logger().info(str(math.sqrt(self.k / ir.value)))
             self._ir_sensors.append(ir)

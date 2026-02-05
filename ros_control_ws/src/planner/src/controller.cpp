@@ -18,7 +18,7 @@ class Controller : public rclcpp::Node {
             // Dichiarazione parametri con default
             this->declare_parameter<int>("global_heading", 0);
             this->declare_parameter<std::vector<int64_t>>("goal", {1, 1});
-            this->declare_parameter<int>("cell_length", 1);
+            this->declare_parameter<double>("cell_length", 1.0);
             this->declare_parameter<double>("rotation_speed", 0.5);
             this->declare_parameter<double>("movement_distance", 1.0);
             this->declare_parameter<double>("movement_speed", 1.0);
@@ -88,7 +88,7 @@ class Controller : public rclcpp::Node {
     private:
         int global_heading;
         int goal[2];
-        int cell_length;
+        double cell_length;
         double rotation_speed;
         double movement_distance;
         double movement_speed;
