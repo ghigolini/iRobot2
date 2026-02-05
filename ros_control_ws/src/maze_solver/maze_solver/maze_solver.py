@@ -4,6 +4,7 @@ from rclpy.action import ActionServer, ActionClient, GoalResponse, CancelRespons
 from rclpy.node import Node
 from rclpy.executors import MultiThreadedExecutor
 import threading, time
+import math
 
 
 from irobot_create_msgs.msg import DockStatus, KidnapStatus, HazardDetectionVector, IrIntensityVector
@@ -211,6 +212,9 @@ class MazeSolver(Node):
     def execute_ir_intensity_callback(self, msg):
         self._ir_sensors.clear()
         for ir in msg.readings:
+            if(ir.heading.frame_id == "ir_intensity_front_center_left") :
+                self.get_logger().info("IR DISTANCE:")
+                self.get_logger().info(str(math.sqrt(self.k / ir.value)))
             self._ir_sensors.append(ir)
 
     
