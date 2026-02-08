@@ -7,7 +7,7 @@
 # ====================
 global_heading: 0
 goal: [20, 20]
-cell_length: 1.0
+cell_length: 0.5
 
 # Movement data
 rotation_speed: 0.5
@@ -19,6 +19,6 @@ movement_speed: 0.3
 angle: 0.5760
 
 # IR costant
-k: 1
+k: 3.37
 
 use_sim_time: true
