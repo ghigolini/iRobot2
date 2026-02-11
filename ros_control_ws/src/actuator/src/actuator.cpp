@@ -28,7 +28,7 @@ public:
         eStopClient = this->create_client<irobot_create_msgs::srv::EStop>("e_stop");
 
         // Dock client
-        dockClient = rclcpp_action::create_client<irobot_create_msgs::action::Dock>(
+        dockClient = rclcpp_action::create_client<irobot_create_msgs::action::DockServo>(
             this,
             "dock"
         );
@@ -69,7 +69,7 @@ private:
     rclcpp_action::Client<irobot_create_msgs::action::DriveDistance>::SharedPtr driveDistanceClient;
     rclcpp_action::Client<irobot_create_msgs::action::RotateAngle>::SharedPtr rotateAngleClient;
     rclcpp::Client<irobot_create_msgs::srv::EStop>::SharedPtr eStopClient;
-    rclcpp_action::Client<irobot_create_msgs::action::Dock>::SharedPtr dockClient;
+    rclcpp_action::Client<irobot_create_msgs::action::DockServo>::SharedPtr dockClient;
     rclcpp_action::Client<irobot_create_msgs::action::Undock>::SharedPtr undockClient;
 
     rclcpp_action::Server<custom_msg::action::ActuatorMove>::SharedPtr movementServer;
