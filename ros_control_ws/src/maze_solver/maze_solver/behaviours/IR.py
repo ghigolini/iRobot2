@@ -36,15 +36,36 @@ class IRMap(py_trees.behaviour.Behaviour):
 
             # First ray RIGHT
             # bisogna leggere il VALUE dall'ir intesity di front_right (34 gradi dx)
-            right_ray_distance = None
+            right_ray_distance = []
+            central_ray_distance = []
+            left_ray_distance = []
 
-            for r in ir_sensors:
-                if r.header.frame_id == "ir_intensity_front_right":
-                    if(r.value == 0) :
-                        right_ray_distance = 2.0
-                    else :
-                        right_ray_distance = math.sqrt(k / r.value);
-                    break
+            while(ir_sensors == []):
+                time.sleep(0.02)
+            t = 0
+            while(t < 20):
+                for r in ir_sensors:
+                    if r.header.frame_id == "ir_intensity_front_right":
+                        if(r.value == 0) :
+                            right_ray_distance.append(2.0)
+                        else :
+                            right_ray_distance.append(math.sqrt(k / r.value))
+                    elif r.header.frame_id == "ir_intensity_front_center_left":
+                        if(r.value == 0) :
+                            central_ray_distance.append(2.0)
+                        else :
+                            central_ray_distance.append(math.sqrt(k / r.value))
+                    elif r.header.frame_id == "ir_intensity_left":
+                        if(r.value == 0) :
+                            left_ray_distance.append(2.0)
+                        else :
+                            left_ray_distance.append(math.sqrt(k / r.value))
+                t += 1
+                time.sleep(0.2)
+            
+            right_ray_distance = sum(right_ray_distance) / len(right_ray_distance)
+            central_ray_distance = sum(central_ray_distance) / len(central_ray_distance)
+            left_ray_distance = sum(left_ray_distance) / len(left_ray_distance)
 
             right_ray_distance_min = ((5 * self.BB.get("cell_length")) / 8) / math.cos(math.radians(34))
             self.BB.get("logger").info(f"RIGHT RAY DISTANCE MIN: {right_ray_distance_min}")
@@ -66,15 +87,6 @@ class IRMap(py_trees.behaviour.Behaviour):
 
             #Central ray
             # bisogna leggere il VALUE dall'ir intesity di front_center_left (3 gradi sx)
-            central_ray_distance = None
-
-            for r in ir_sensors:
-                if r.header.frame_id == "ir_intensity_front_center_left":
-                    if(r.value == 0) :
-                        central_ray_distance = 2.0
-                    else :
-                        central_ray_distance = math.sqrt(k / r.value);
-                    break
 
             central_ray_distance_min = ((5 * self.BB.get("cell_length")) / 8) / math.cos(math.radians(3))
             self.BB.get("logger").info(f"CENTRAL RAY DISTANCE MIN: {central_ray_distance_min}")
@@ -96,15 +108,6 @@ class IRMap(py_trees.behaviour.Behaviour):
             
             #Last ray LEFT
             # bisogna leggere il VALUE dall'ir intesity di left (38 gradi sx)
-            left_ray_distance = None
-
-            for r in ir_sensors:
-                if r.header.frame_id == "ir_intensity_left":
-                    if(r.value == 0) :
-                        left_ray_distance = 2.0
-                    else :
-                        left_ray_distance = math.sqrt(k / r.value);
-                    break
 
             left_ray_distance_min = ((5 * self.BB.get("cell_length")) / 8) / math.cos(math.radians(38))
             self.BB.get("logger").info(f"LEFT RAY DISTANCE MIN: {left_ray_distance_min}")
