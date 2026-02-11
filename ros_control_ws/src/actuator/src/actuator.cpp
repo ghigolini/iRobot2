@@ -6,6 +6,7 @@
 #include "irobot_create_msgs/srv/e_stop.hpp"
 #include "irobot_create_msgs/action/dock.hpp"
 #include "irobot_create_msgs/action/undock.hpp"
+#include "irobot_create_msgs/action/dock_servo.hpp"
 
 #include "custom_msg/action/actuator_move.hpp"
 #include "custom_msg/action/actuator_dock.hpp"
@@ -144,7 +145,7 @@ private:
         std::shared_ptr<rclcpp_action::ServerGoalHandle<custom_msg::action::ActuatorDock>> actuator_goal)
     {
         using namespace std::placeholders;
-        using DockClientGoalHandle = rclcpp_action::ClientGoalHandle<irobot_create_msgs::action::Dock>;
+        using DockClientGoalHandle = rclcpp_action::ClientGoalHandle<irobot_create_msgs::action::DockServo>;
         using DockClientFuture = std::shared_future<std::shared_ptr<DockClientGoalHandle>>;
 
         if (!dockClient->wait_for_action_server()) {
@@ -156,9 +157,9 @@ private:
             return;
         }
 
-        irobot_create_msgs::action::Dock::Goal goal_msg;
+        irobot_create_msgs::action::DockServo::Goal goal_msg;
 
-        auto options = rclcpp_action::Client<irobot_create_msgs::action::Dock>::SendGoalOptions();
+        auto options = rclcpp_action::Client<irobot_create_msgs::action::DockServo>::SendGoalOptions();
 
         // RESPONSE
         options.goal_response_callback =
@@ -172,7 +173,7 @@ private:
 
         // RESULT
         options.result_callback =
-            [this, actuator_goal](const rclcpp_action::ClientGoalHandle<irobot_create_msgs::action::Dock>::WrappedResult & r)
+            [this, actuator_goal](const rclcpp_action::ClientGoalHandle<irobot_create_msgs::action::DockServo>::WrappedResult & r)
             {
                 auto result = std::make_shared<custom_msg::action::ActuatorDock::Result>();
 

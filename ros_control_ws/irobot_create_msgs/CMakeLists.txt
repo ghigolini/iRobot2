@@ -21,6 +21,7 @@ find_package(std_msgs REQUIRED)
 set(action_files
   "action/AudioNoteSequence.action"
   "action/Dock.action"
+  "action/DockServo.action"
   "action/DriveArc.action"
   "action/DriveDistance.action"
   "action/LedAnimation.action"
