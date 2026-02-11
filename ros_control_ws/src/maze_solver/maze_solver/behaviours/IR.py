@@ -41,7 +41,7 @@ class IRMap(py_trees.behaviour.Behaviour):
             left_ray_distance = []
 
             while(ir_sensors == []):
-                time.sleep(0.02)
+                sleep(0.02)
             t = 0
             while(t < 20):
                 for r in ir_sensors:
@@ -61,7 +61,7 @@ class IRMap(py_trees.behaviour.Behaviour):
                         else :
                             left_ray_distance.append(math.sqrt(k / r.value))
                 t += 1
-                time.sleep(0.2)
+                sleep(0.2)
             
             right_ray_distance = sum(right_ray_distance) / len(right_ray_distance)
             central_ray_distance = sum(central_ray_distance) / len(central_ray_distance)
@@ -134,7 +134,7 @@ class IRMap(py_trees.behaviour.Behaviour):
             return py_trees.common.Status.SUCCESS
                 
 
-            sleep(0.200)
+            # sleep(0.200)
 
     
     def print_map(self):
