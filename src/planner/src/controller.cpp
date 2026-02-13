@@ -450,9 +450,9 @@ class Controller : public rclcpp::Node {
                     } else {
                         RCLCPP_ERROR(this->get_logger(), "Already undocked!");
                     }
-                } else if(command == "MODE A") {
+                } else if(command == "MODE_A") {
                     this->mode = 0;
-                } else if(command == "MODE B") {
+                } else if(command == "MODE_B") {
                     this->mode = 1;
                 } else if(command == "SOLVE") {
                     send_maze_solve_goal(mode == 0 ? "PLEDGE" : "TREMAUX", this->goal);
@@ -460,9 +460,9 @@ class Controller : public rclcpp::Node {
                     send_actuator_movement_goal("DISTANCE", this->movement_distance, this->movement_speed);
                 } else if(command == "BACKWARD") {
                     send_actuator_movement_goal("DISTANCE", -this->movement_distance, this->movement_speed);
-                } else if(command == "ROTATE LEFT") {
+                } else if(command == "ROTATE_LEFT") {
                     send_actuator_movement_goal("ANGLE", 1.5707963267948966, this->rotation_speed);
-                } else if(command == "ROTATE RIGHT") {
+                } else if(command == "ROTATE_RIGHT") {
                     send_actuator_movement_goal("ANGLE", -1.5707963267948966, this->rotation_speed);
                 } else if(command == "START") {
                     send_actuator_stop(false);
