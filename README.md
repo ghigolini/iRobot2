@@ -34,7 +34,7 @@ Sono stati inoltre cambiati i parametri di configurazione in modo da adattarsi a
 
 4. Buildare il progetto
    ```bash
-    cocon build
+    colcon build
     ```
 
 5. Effettuare source per i nodi appena buildati
